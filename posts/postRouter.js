@@ -1,9 +1,15 @@
-const express = 'express';
-
+const express = require('express');
+const db = require('./postDb');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-
+    db.get()
+        .then(posts => {
+            res.status(200).json(posts)
+        })
+        .catch(() => {
+            res.status(404).json({error: 'network error'})
+        })
 });
 
 router.get('/:id', (req, res) => {
