@@ -4,7 +4,12 @@ const postsdb = require('../posts/postDb');
 
 // const postsdb = require('./postDb');
 const router = express.Router();
-
+const middleware = [
+    validatePost,
+    validateUser,
+    validateUserId
+];
+router.use(middleware)
 
 router.post('/', (req, res) => {
     const user = req.body
@@ -92,8 +97,12 @@ router.put('/:id', (req, res) => {
 //custom middleware
 
 function validateUserId(req, res, next) {
+if (userdb.getById(req.params.id)){
+    console.log('you are good')
+    } else {
+        res.status(500).json({message: 'you dont have an account here'})
 
-};
+}};
 
 function validateUser(req, res, next) {
 
