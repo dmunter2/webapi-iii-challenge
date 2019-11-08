@@ -20,6 +20,17 @@ server.get('/', (req, res) => {
 
 //custom middleware
 
+// function(req,res) {
+//   res.status(404).send('this is middleware')
+// }
+// server.use(function(req,res) {
+//   res.status(404).send('this is middleware')
+// })
+
+
+
+
+
 function logger(req, res, next) {
   console.log(`${req.method} Request`);
   next();
