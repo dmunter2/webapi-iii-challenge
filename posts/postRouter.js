@@ -24,11 +24,27 @@ router.get('/:id', (req, res) => {
 
 
 router.delete('/:id', (req, res) => {
+    const id = req.params.id
+    postsdb.remove(id)
+    .then(post => {
+        res.status(200).json({message: 'successfully deleted'})
+    })
+    .catch(err => {
+        res.status(500).json({error: "was not deleted"})
+    })
 
 });
 
 router.put('/:id', (req, res) => {
-
+    const id = req.params.id;
+    const changes = req.body;
+    postsdb.update(id, changes)
+        .then(updates => {
+            res.status(200).json({message: `it worked`})
+        })
+        .catch(err => {
+            res.status(500).json({error: "did not update"})
+        })
 });
 
 // custom middleware
